@@ -1,8 +1,6 @@
 name: Lint
 
-on:
-  - push
-  - pull_request
+on: push
 
 jobs:
   run-linters:
@@ -11,6 +9,7 @@ jobs:
 
     steps:
       - run: |
+          echo $GITHUB_ACTOR
           echo $GITHUB_SHA
           echo $GITHUB_REF
           echo $GITHUB_HEAD_REF
@@ -28,9 +27,9 @@ jobs:
         run: pip install black flake8
 
       - name: Run linters
-        uses: samuelmeuli/lint-action@v1
+        uses: samuelmeuli/lint-action@development
         with:
           github_token: ${{ secrets.github_token }}
-          # Enable linters
+          auto_fix: true
           black: true
           flake8: true
